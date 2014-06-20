@@ -11,7 +11,9 @@ struct Node{
 };
 
 Node *avlAdd(Node *root , Node *nodeToAdd);
-Node *avlRemove(Node *root , Node *nodeToRemove);
+Node *avlRemoveX(Node *root , Node *nodeToRemove);
+Node *avlRemove(Node **ptrToRoot , Node *nodeToRemove);
+Node *avlGetReplacer(Node **ptrToRoot);
 Node *avlRemoveRootName(Node *root);
 
 #endif // AVL_H

@@ -36,7 +36,6 @@ void test_Xbalance_same_case_with_above_test(){
   
   Node *root;
   
-  getbalance(&Node1);
   TEST_ASSERT_EQUAL(2, Node1.balance);
   
   root = leftRotate(&Node1);
@@ -50,12 +49,6 @@ void test_Xbalance_same_case_with_above_test(){
   TEST_ASSERT_NULL(root->rightChild->leftChild);
   TEST_ASSERT_NULL(root->rightChild->rightChild);
   
-  getbalance(&Node2);
-  TEST_ASSERT_EQUAL(0, Node2.balance);
-  getbalance(&Node3);
-  TEST_ASSERT_EQUAL(0, Node3.balance);
-  getbalance(&Node1);
-  TEST_ASSERT_EQUAL(0, Node1.balance);
 }
 
 
@@ -117,8 +110,6 @@ void test_doubleRightRotate_given_3_elements_should_rotate_to_balance_tree(){
   TEST_ASSERT_EQUAL(0, Node1.balance);
   TEST_ASSERT_EQUAL(0, Node3.balance);
   
-  int rank = getbalance(&Node1);
-  TEST_ASSERT_EQUAL(0, rank);
 }
 
 /**
@@ -171,12 +162,6 @@ void test_fakeTREE_right_single(){
   TEST_ASSERT_EQUAL_PTR(&Node10, root);
   TEST_ASSERT_EQUAL_PTR(&Node5, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->rightChild);
-  
-  //TEST_ASSERT_EQUAL_PTR(&Node1, root->leftChild->leftChild->leftChild);
-  
-  // TEST_ASSERT_EQUAL_PTR(&Node30, root->rightChild->leftChild);
-  // printf("Parent->rightChild->rightChild  %d",root->rightChild->rightChild);
-  // TEST_ASSERT_EQUAL_PTR(&Node100, root->rightChild->rightChild);
 
   TEST_ASSERT_EQUAL(2, Node10.balance);
   TEST_ASSERT_EQUAL(1, Node5.balance);
@@ -340,8 +325,6 @@ void test_rightRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
   TEST_ASSERT_EQUAL(0, Node30.balance);
   TEST_ASSERT_EQUAL(0, Node100.balance);
   
-  getbalance(&Node5);
-  TEST_ASSERT_EQUAL(-1, Node5.balance);
  }
  /**            -2
   *         (50)               0  (30) 
@@ -395,10 +378,10 @@ void test_doubleLeftRotate_given_6_element_should_rotate_to_balance_the_tree_cas
   Node Node40 = {.data = 40, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
   Node Node5 = {.data = 5, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node30  = {.data = 30,  .balance = 0, .leftChild = &Node40, . rightChild = NULL};
+  Node Node30  = {.data = 30,  .balance = -1, .leftChild = &Node40, . rightChild = NULL};
   
   Node Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node10  = {.data = 10,  .balance = 0, .leftChild = &Node30, . rightChild = &Node5};
+  Node Node10  = {.data = 10,  .balance = -1, .leftChild = &Node30, . rightChild = &Node5};
   
   Node Node50  = {.data = 50,  .balance = 2, .leftChild = &Node100, . rightChild = &Node10};
   Node *root;
@@ -414,8 +397,8 @@ void test_doubleLeftRotate_given_6_element_should_rotate_to_balance_the_tree_cas
   TEST_ASSERT_EQUAL_PTR(&Node100, root->leftChild->leftChild);
   
   TEST_ASSERT_EQUAL(0, Node30.balance);
-  //TEST_ASSERT_EQUAL(0, Node50.balance);
-  //TEST_ASSERT_EQUAL(1, Node10.balance);
+  TEST_ASSERT_EQUAL(0, Node50.balance);
+  TEST_ASSERT_EQUAL(1, Node10.balance);
   TEST_ASSERT_EQUAL(0, Node5.balance);
   TEST_ASSERT_EQUAL(0, Node40.balance);
   TEST_ASSERT_EQUAL(0, Node100.balance);
@@ -443,8 +426,6 @@ void test_Yrank_result(){
 
   root = leftRotate(&Node50);
 
-  getbalance(&Node150);
-  TEST_ASSERT_EQUAL(1, Node150.balance);
 }
 
 /** TEST CASE B....CASE A tested above
@@ -492,14 +473,7 @@ void test_leftRotate_for_the_caseB(){
   // height after rotate
   int height2 = getHeight(&Node100);
   TEST_ASSERT_EQUAL(3, height2);
-  
-  // balance after rotate
-  getbalance(&Node150);
-  TEST_ASSERT_EQUAL(1, Node150.balance);
-  getbalance(&Node100);
-  TEST_ASSERT_EQUAL(0, Node100.balance);
-  getbalance(&Node200);
-  TEST_ASSERT_EQUAL(0, Node200.balance);
+
 }
 /** 
   *		   (100) +1                      (150)-1

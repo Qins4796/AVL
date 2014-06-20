@@ -15,17 +15,17 @@ int getHeight(Node *parent){
     else return right+1;
 }
 
-int getbalance(Node *parent){
-  int left=0, right = 0;
+// int getbalance(Node *parent){
+  // int left=0, right = 0;
   
-  if(parent == NULL) return 0;
-  else if (parent->leftChild == NULL || parent->rightChild == NULL) return 0;
-  else{
-	  left = getHeight(parent->leftChild);
-	  right = getHeight(parent->rightChild);
-	  return  left - right;
-	  }
-}
+  // if(parent == NULL) return 0;
+  // else if (parent->leftChild == NULL || parent->rightChild == NULL) return 0;
+  // else{
+	  // left = getHeight(parent->leftChild);
+	  // right = getHeight(parent->rightChild);
+	  // return  left - right;
+	  // }
+// }
 
 Node *rightRotate(Node *parent){
 
@@ -44,7 +44,6 @@ Node *rightRotate(Node *parent){
   
   // Parent->balance += 1;
   // Parent->rightChild->balance += 2;
-  
   return Parent;
 }
 Node *leftRotate(Node *parent){
@@ -104,8 +103,6 @@ Node *tree(Node *parent){
   Parent->leftChild->leftChild = parent->leftChild->leftChild->leftChild;
   Parent->rightChild->leftChild = parent->leftChild->rightChild;
   Parent->rightChild->rightChild = parent->rightChild;
-  
-  //printf("Parent->rightChild->rightChild  %d\n",Parent->rightChild->rightChild);
   
   Parent->balance = 2;
   
