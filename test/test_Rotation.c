@@ -133,9 +133,9 @@ void test_doubleLeftRotate_given_3_elements_should_rotate_to_balance_tree(){
   TEST_ASSERT_EQUAL_PTR(&Node1, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node3, root->rightChild);
   
-  TEST_ASSERT_EQUAL(0, Node2.balance);
-  //TEST_ASSERT_EQUAL(0, Node1.balance);
-  //TEST_ASSERT_EQUAL(0, Node3.balance);
+  // TEST_ASSERT_EQUAL(0, Node2.balance);
+  // TEST_ASSERT_EQUAL(0, Node1.balance);
+  // TEST_ASSERT_EQUAL(0, Node3.balance);
 }
 /**
   *        (50)              (10) 2
