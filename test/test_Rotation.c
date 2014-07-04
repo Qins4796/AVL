@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "Rotation.h"
 #include "AVL.h"
+#include "AVLInt.h"
 
 void setUp(){}
 void tearDown(){}
@@ -14,12 +15,12 @@ void tearDown(){}
   */
   
 void test_leftRotate_given_3_elements_should_rotate_to_balance_tree(){
-  Node Node3 = {.data = 3, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node2 = {.data = 2, .balance = 1, .leftChild = NULL, . rightChild = &Node3};
-  Node Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node2};
-  Node *root;
+  NodeInt Node3 = {.data = 3, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = 1, .leftChild = NULL, . rightChild = &Node3};
+  NodeInt Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node2};
+  NodeInt *root;
   
-  root = leftRotate(&Node1);
+  root = (NodeInt *) leftRotate((Node *) &Node1);
   TEST_ASSERT_EQUAL_PTR(&Node2, root);
   TEST_ASSERT_EQUAL_PTR(&Node1, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node3, root->rightChild);
@@ -30,15 +31,15 @@ void test_leftRotate_given_3_elements_should_rotate_to_balance_tree(){
 }
 
 void test_Xbalance_same_case_with_above_test(){
-  Node Node3 = {.data = 3, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node2 = {.data = 2, .balance = 1, .leftChild = NULL, . rightChild = &Node3};
-  Node Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node2};
+  NodeInt Node3 = {.data = 3, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = 1, .leftChild = NULL, . rightChild = &Node3};
+  NodeInt Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node2};
   
-  Node *root;
+  NodeInt *root;
   
   TEST_ASSERT_EQUAL(2, Node1.balance);
   
-  root = leftRotate(&Node1);
+  root = (NodeInt *) leftRotate((Node *) &Node1);
   
   TEST_ASSERT_NOT_NULL(root);
   TEST_ASSERT_NOT_NULL(root->leftChild);
@@ -61,13 +62,13 @@ void test_Xbalance_same_case_with_above_test(){
   */
   
 void test_rightRotate_given_3_elements_should_rotate_to_balance_tree(){
-  Node Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node2 = {.data = 2, .balance = -1, .leftChild = &Node1, . rightChild = NULL};
-  Node Node3 = {.data = 3, .balance = -2, .leftChild = &Node2, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = -1, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node3 = {.data = 3, .balance = -2, .leftChild = &Node2, . rightChild = NULL};
 
-  Node *root;
+  NodeInt *root;
   
-  root = rightRotate(&Node3);
+  root = (NodeInt *) rightRotate((Node *) &Node3);
   TEST_ASSERT_EQUAL_PTR(&Node2, root);
   TEST_ASSERT_EQUAL_PTR(&Node1, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node3, root->rightChild);
@@ -94,14 +95,14 @@ void test_rightRotate_given_3_elements_should_rotate_to_balance_tree(){
   
 void test_doubleRightRotate_given_3_elements_should_rotate_to_balance_tree(){
   
-  Node Node2 = {.data = 2, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node1 = {.data = 1, .balance = 1, .leftChild = NULL, . rightChild = &Node2};
-  Node Node3 = {.data = 3, .balance = -2, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 1, .leftChild = NULL, . rightChild = &Node2};
+  NodeInt Node3 = {.data = 3, .balance = -2, .leftChild = &Node1, . rightChild = NULL};
   
   
-  Node *root;
+  NodeInt *root;
   
-  root = doubleRightRotate(&Node3);
+  root = (NodeInt *) doubleRightRotate((Node *) &Node3);
   TEST_ASSERT_EQUAL_PTR(&Node2, root);
   TEST_ASSERT_EQUAL_PTR(&Node1, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node3, root->rightChild);
@@ -122,13 +123,13 @@ void test_doubleRightRotate_given_3_elements_should_rotate_to_balance_tree(){
   
 void test_doubleLeftRotate_given_3_elements_should_rotate_to_balance_tree(){
   
-  Node Node2 = {.data = 2, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node3 = {.data = 3, .balance = -1, .leftChild = &Node2, . rightChild = NULL};
-  Node Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node3};
+  NodeInt Node2 = {.data = 2, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node3 = {.data = 3, .balance = -1, .leftChild = &Node2, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node3};
   
-  Node *root;
+  NodeInt *root;
   
-  root = doubleLeftRotate(&Node1);
+  root = (NodeInt *) doubleLeftRotate((Node *) &Node1);
   TEST_ASSERT_EQUAL_PTR(&Node2, root);
   TEST_ASSERT_EQUAL_PTR(&Node1, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node3, root->rightChild);
@@ -148,17 +149,17 @@ void test_doubleLeftRotate_given_3_elements_should_rotate_to_balance_tree(){
   *
   */
 void test_fakeTREE_right_single(){
-  Node Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node30 = {.data = 30, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node30 = {.data = 30, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node5 = {.data = 5, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
-  Node Node10 = {.data = 10, .balance = 2, .leftChild = &Node5, . rightChild = &Node30};
-  Node Node50 = {.data = 50, .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
+  NodeInt Node5 = {.data = 5, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node10 = {.data = 10, .balance = 2, .leftChild = &Node5, . rightChild = &Node30};
+  NodeInt Node50 = {.data = 50, .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
   
-  Node *root;
+  NodeInt *root;
   
-  root = tree(&Node50);
+  root = (NodeInt *) tree((Node *) &Node50);
   TEST_ASSERT_EQUAL_PTR(&Node10, root);
   TEST_ASSERT_EQUAL_PTR(&Node5, root->leftChild);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->rightChild);
@@ -180,11 +181,11 @@ void test_fakeTREE_right_single(){
   *   (1)
   */
 void test_getHeight_left_given_3_elements_should_get_the_height_to_balance_tree(){
-  Node Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node2 = {.data = 2, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
-  Node Node3 = {.data = 3, .balance = 2, .leftChild = &Node2, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node3 = {.data = 3, .balance = 2, .leftChild = &Node2, . rightChild = NULL};
   
-  int height = getHeight(&Node3);
+  int height = getHeight((Node *)  &Node3);
 
   TEST_ASSERT_EQUAL(3, height);
 }
@@ -196,11 +197,11 @@ void test_getHeight_left_given_3_elements_should_get_the_height_to_balance_tree(
   *      (3)
   */
 void test_getHeight_right_given_3_elements_should_get_the_height_to_balance_tree(){
-	Node Node3 = {.data = 3, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node2 = {.data = 2, .balance = 1, .leftChild = NULL, . rightChild = &Node3};
-  Node Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node2};
+	NodeInt Node3 = {.data = 3, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = 1, .leftChild = NULL, . rightChild = &Node3};
+  NodeInt Node1 = {.data = 1, .balance = 2, .leftChild = NULL, . rightChild = &Node2};
   
-  int height = getHeight(&Node1);
+  int height = getHeight((Node *)  &Node1);
 
   TEST_ASSERT_EQUAL(3, height);
 }
@@ -215,15 +216,15 @@ void test_getHeight_right_given_3_elements_should_get_the_height_to_balance_tree
   *
   */
 void test_getHeight_for_the_5_element_above(){
-  Node Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node30 = {.data = 30, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node30 = {.data = 30, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node5 = {.data = 5, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
-  Node Node10 = {.data = 10, .balance = 2, .leftChild = &Node5, . rightChild = &Node30};
-  Node Node50 = {.data = 50, .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
+  NodeInt Node5 = {.data = 5, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node10 = {.data = 10, .balance = 2, .leftChild = &Node5, . rightChild = &Node30};
+  NodeInt Node50 = {.data = 50, .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
   
-  int height = getHeight(&Node50);
+  int height = getHeight((Node *)  &Node50);
 
   TEST_ASSERT_EQUAL(4, height);
 }
@@ -239,13 +240,13 @@ void test_getHeight_for_the_5_element_above(){
   *   (1)
   */
 void test_getHeight_for_the_height_of_5_element(){
-  Node Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node2 = {.data = 2, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
-  Node Node3 = {.data = 3, .balance = 2, .leftChild = &Node2, . rightChild = NULL};
-  Node Node4 = {.data = 4, .balance = 3, .leftChild = &Node3, . rightChild = NULL};
-  Node Node5 = {.data = 5, .balance = 4, .leftChild = &Node4, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node2 = {.data = 2, .balance = 1, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node3 = {.data = 3, .balance = 2, .leftChild = &Node2, . rightChild = NULL};
+  NodeInt Node4 = {.data = 4, .balance = 3, .leftChild = &Node3, . rightChild = NULL};
+  NodeInt Node5 = {.data = 5, .balance = 4, .leftChild = &Node4, . rightChild = NULL};
   
-  int height = getHeight(&Node5);
+  int height = getHeight((Node *)  &Node5);
 
   TEST_ASSERT_EQUAL(5, height);
 
@@ -260,18 +261,18 @@ void test_getHeight_for_the_height_of_5_element(){
   *               (200)
   */
 void test_leftRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
-  Node Node200 = {.data = 200, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node200 = {.data = 200, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node150 = {.data = 150, .balance = 1, .leftChild = NULL, . rightChild = &Node200};
-  Node Node70  = {.data = 70,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node150 = {.data = 150, .balance = 1, .leftChild = NULL, . rightChild = &Node200};
+  NodeInt Node70  = {.data = 70,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node100 = {.data = 100, .balance = 1, .leftChild = &Node70, . rightChild = &Node150};
-  Node Node10  = {.data = 10,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node100 = {.data = 100, .balance = 1, .leftChild = &Node70, . rightChild = &Node150};
+  NodeInt Node10  = {.data = 10,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node50  = {.data = 50,  .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
-  Node *root;
+  NodeInt Node50  = {.data = 50,  .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
+  NodeInt *root;
 
-  root = leftRotate(&Node50);
+  root = (NodeInt *) leftRotate((Node *) &Node50);
   
   TEST_ASSERT_EQUAL_PTR(&Node100, root);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->leftChild);
@@ -298,18 +299,18 @@ void test_leftRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
   *
   */
 void test_rightRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
-  Node Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node1 = {.data = 1, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node5 = {.data = 5, .balance = -1, .leftChild = &Node1, . rightChild = NULL};
-  Node Node30  = {.data = 30,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node5 = {.data = 5, .balance = -1, .leftChild = &Node1, . rightChild = NULL};
+  NodeInt Node30  = {.data = 30,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node10  = {.data = 10,  .balance = -1, .leftChild = &Node5, . rightChild = &Node30};
+  NodeInt Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node10  = {.data = 10,  .balance = -1, .leftChild = &Node5, . rightChild = &Node30};
   
-  Node Node50  = {.data = 50,  .balance = -2, .leftChild = &Node10, . rightChild = &Node100};
-  Node *root;
+  NodeInt Node50  = {.data = 50,  .balance = -2, .leftChild = &Node10, . rightChild = &Node100};
+  NodeInt *root;
 
-  root = rightRotate(&Node50);
+  root = (NodeInt *) rightRotate((Node *) &Node50);
   
   TEST_ASSERT_EQUAL_PTR(&Node10, root);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->rightChild);
@@ -336,18 +337,18 @@ void test_rightRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
   *           (40)
   */
 void test_doubleRightRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
-  Node Node40 = {.data = 40, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node40 = {.data = 40, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node5 = {.data = 5, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node30  = {.data = 30,  .balance = 1, .leftChild = NULL, . rightChild = &Node40};
+  NodeInt Node5 = {.data = 5, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node30  = {.data = 30,  .balance = 1, .leftChild = NULL, . rightChild = &Node40};
   
-  Node Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node10  = {.data = 10,  .balance = 1, .leftChild = &Node5, . rightChild = &Node30};
+  NodeInt Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node10  = {.data = 10,  .balance = 1, .leftChild = &Node5, . rightChild = &Node30};
   
-  Node Node50  = {.data = 50,  .balance = -2, .leftChild = &Node10, . rightChild = &Node100};
-  Node *root;
+  NodeInt Node50  = {.data = 50,  .balance = -2, .leftChild = &Node10, . rightChild = &Node100};
+  NodeInt *root;
 
-  root = doubleRightRotate(&Node50);
+  root = (NodeInt *) doubleRightRotate((Node *) &Node50);
   
   TEST_ASSERT_EQUAL_PTR(&Node30, root);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->rightChild);
@@ -375,18 +376,18 @@ void test_doubleRightRotate_given_6_element_should_rotate_to_balance_the_tree_ca
   *      (40) 
   */
 void test_doubleLeftRotate_given_6_element_should_rotate_to_balance_the_tree_case1(){
-  Node Node40 = {.data = 40, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node40 = {.data = 40, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node5 = {.data = 5, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node30  = {.data = 30,  .balance = -1, .leftChild = &Node40, . rightChild = NULL};
+  NodeInt Node5 = {.data = 5, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node30  = {.data = 30,  .balance = -1, .leftChild = &Node40, . rightChild = NULL};
   
-  Node Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node10  = {.data = 10,  .balance = -1, .leftChild = &Node30, . rightChild = &Node5};
+  NodeInt Node100 = {.data = 100, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node10  = {.data = 10,  .balance = -1, .leftChild = &Node30, . rightChild = &Node5};
   
-  Node Node50  = {.data = 50,  .balance = 2, .leftChild = &Node100, . rightChild = &Node10};
-  Node *root;
+  NodeInt Node50  = {.data = 50,  .balance = 2, .leftChild = &Node100, . rightChild = &Node10};
+  NodeInt *root;
   
-  root = doubleLeftRotate(&Node50);
+  root = (NodeInt *) doubleLeftRotate((Node *) &Node50);
   
   TEST_ASSERT_EQUAL_PTR(&Node30, root);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->leftChild);
@@ -413,18 +414,18 @@ void test_doubleLeftRotate_given_6_element_should_rotate_to_balance_the_tree_cas
   *               (200)
   */
 void test_Yrank_result(){
-  Node Node200 = {.data = 200, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node200 = {.data = 200, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node150 = {.data = 150, .balance = 1, .leftChild = NULL, . rightChild = &Node200};
-  Node Node70  = {.data = 70,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node150 = {.data = 150, .balance = 1, .leftChild = NULL, . rightChild = &Node200};
+  NodeInt Node70  = {.data = 70,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node100 = {.data = 100, .balance = 1, .leftChild = &Node70, . rightChild = &Node150};
-  Node Node10  = {.data = 10,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node100 = {.data = 100, .balance = 1, .leftChild = &Node70, . rightChild = &Node150};
+  NodeInt Node10  = {.data = 10,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node50  = {.data = 50,  .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
-  Node *root;
+  NodeInt Node50  = {.data = 50,  .balance = 2, .leftChild = &Node10, . rightChild = &Node100};
+  NodeInt *root;
 
-  root = leftRotate(&Node50);
+  root = (NodeInt *) leftRotate((Node *) &Node50);
 
 }
 
@@ -439,22 +440,22 @@ void test_Yrank_result(){
   *               (200) 0
   */
 void test_leftRotate_for_the_caseB(){
-  Node Node200 = {.data = 200, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node200 = {.data = 200, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node150 = {.data = 150, .balance = 1, .leftChild = NULL, . rightChild = &Node200};
-  Node Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node150 = {.data = 150, .balance = 1, .leftChild = NULL, . rightChild = &Node200};
+  NodeInt Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node100 = {.data = 100, .balance = 1, .leftChild = &Node75, . rightChild = &Node150};
-  Node Node1  = {.data = 10,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node100 = {.data = 100, .balance = 1, .leftChild = &Node75, . rightChild = &Node150};
+  NodeInt Node1  = {.data = 10,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node50  = {.data = 50,  .balance = 2, .leftChild = &Node1, . rightChild = &Node100};
+  NodeInt Node50  = {.data = 50,  .balance = 2, .leftChild = &Node1, . rightChild = &Node100};
   
-  Node *root;
+  NodeInt *root;
 
-  int height = getHeight(&Node50);
+  int height = getHeight((Node *)  &Node50);
   TEST_ASSERT_EQUAL(4, height);
   
-  root = leftRotate(&Node50);
+  root = (NodeInt *) leftRotate((Node *) &Node50);
   
   TEST_ASSERT_EQUAL_PTR(&Node100, root);
   TEST_ASSERT_EQUAL_PTR(&Node50, root->leftChild);
@@ -471,7 +472,7 @@ void test_leftRotate_for_the_caseB(){
   TEST_ASSERT_EQUAL(0, Node200.balance);
   
   // height after rotate
-  int height2 = getHeight(&Node100);
+  int height2 = getHeight((Node *)  &Node100);
   TEST_ASSERT_EQUAL(3, height2);
 
 }
@@ -485,25 +486,25 @@ void test_leftRotate_for_the_caseB(){
   *              (180)          (1)  (75)
   */
 void test_leftRotate_for_the_caseC(){
-  Node Node180 = {.data = 180, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node180 = {.data = 180, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node120 = {.data = 120,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node200 = {.data = 200,  .balance = -1, .leftChild = &Node180, . rightChild = NULL};
+  NodeInt Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node120 = {.data = 120,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node200 = {.data = 200,  .balance = -1, .leftChild = &Node180, . rightChild = NULL};
   
-  Node Node150 = {.data = 150, .balance = +1, .leftChild = &Node120, . rightChild = &Node200};
-  Node Node50  = {.data = 50,  .balance = 0, .leftChild = &Node1, . rightChild = &Node75};
+  NodeInt Node150 = {.data = 150, .balance = +1, .leftChild = &Node120, . rightChild = &Node200};
+  NodeInt Node50  = {.data = 50,  .balance = 0, .leftChild = &Node1, . rightChild = &Node75};
   
-  Node Node100 = {.data = 100, .balance = 1, .leftChild = &Node50, . rightChild = &Node150};
+  NodeInt Node100 = {.data = 100, .balance = 1, .leftChild = &Node50, . rightChild = &Node150};
   
-  int height = getHeight(&Node100);
+  int height = getHeight((Node *)  &Node100);
   TEST_ASSERT_EQUAL(4, height);
   
-  Node *root;
-  root = leftRotate(&Node100);
+  NodeInt *root;
+  root = (NodeInt *) leftRotate((Node *) &Node100);
   
-  int height2 = getHeight(&Node150);
+  int height2 = getHeight((Node *)  &Node150);
   TEST_ASSERT_EQUAL(4, height2);
   
   TEST_ASSERT_EQUAL_PTR(&Node150, root);
@@ -537,25 +538,25 @@ void test_leftRotate_for_the_caseC(){
   *             (130)          (1)  (75)   (130)
   */
 void test_leftRotate_for_the_caseD(){
-  Node Node130 = {.data = 130, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node130 = {.data = 130, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node120 = {.data = 120,  .balance = 1, .leftChild = NULL, . rightChild = &Node130};
-  Node Node200 = {.data = 200,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node120 = {.data = 120,  .balance = 1, .leftChild = NULL, . rightChild = &Node130};
+  NodeInt Node200 = {.data = 200,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node150 = {.data = 150, .balance = -1, .leftChild = &Node120, . rightChild = &Node200};
-  Node Node50  = {.data = 50,  .balance = 0, .leftChild = &Node1, . rightChild = &Node75};
+  NodeInt Node150 = {.data = 150, .balance = -1, .leftChild = &Node120, . rightChild = &Node200};
+  NodeInt Node50  = {.data = 50,  .balance = 0, .leftChild = &Node1, . rightChild = &Node75};
   
-  Node Node100 = {.data = 100, .balance = 1, .leftChild = &Node50, . rightChild = &Node150};
+  NodeInt Node100 = {.data = 100, .balance = 1, .leftChild = &Node50, . rightChild = &Node150};
   
-  int height = getHeight(&Node100);
+  int height = getHeight((Node *)  &Node100);
   TEST_ASSERT_EQUAL(4, height);
   
-  Node *root;
-  root = leftRotate(&Node100);
+  NodeInt *root;
+  root = (NodeInt *) leftRotate((Node *) &Node100);
   
-  int height2 = getHeight(&Node150);
+  int height2 = getHeight((Node *)  &Node150);
   TEST_ASSERT_EQUAL(4, height2);
   
   TEST_ASSERT_EQUAL_PTR(&Node150, root);
@@ -587,25 +588,25 @@ void test_leftRotate_for_the_caseD(){
   *     (180)						          (75)   (1)  
   */ 
 void test_rightRotate_for_caseC(){
-  Node Node180 = {.data = 180, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node180 = {.data = 180, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node120 = {.data = 120,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node200 = {.data = 200,  .balance = 1, .leftChild = NULL, . rightChild = &Node180};
+  NodeInt Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node120 = {.data = 120,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node200 = {.data = 200,  .balance = 1, .leftChild = NULL, . rightChild = &Node180};
   
-  Node Node150 = {.data = 150, .balance = -1, .leftChild = &Node200, . rightChild = &Node120};
-  Node Node50  = {.data = 50,  .balance = 0, .leftChild = &Node75, . rightChild = &Node1};
+  NodeInt Node150 = {.data = 150, .balance = -1, .leftChild = &Node200, . rightChild = &Node120};
+  NodeInt Node50  = {.data = 50,  .balance = 0, .leftChild = &Node75, . rightChild = &Node1};
   
-  Node Node100 = {.data = 100, .balance = -1, .leftChild = &Node150, . rightChild = &Node50};
+  NodeInt Node100 = {.data = 100, .balance = -1, .leftChild = &Node150, . rightChild = &Node50};
   
-  int height = getHeight(&Node100);
+  int height = getHeight((Node *)  &Node100);
   TEST_ASSERT_EQUAL(4, height);
   
-  Node *root;
-  root = rightRotate(&Node100);
+  NodeInt *root;
+  root = (NodeInt *) rightRotate((Node *) &Node100);
   
-  int height2 = getHeight(&Node150);
+  int height2 = getHeight((Node *)  &Node150);
   TEST_ASSERT_EQUAL(4, height2);
 
   TEST_ASSERT_EQUAL_PTR(&Node150, root);
@@ -638,20 +639,20 @@ void test_rightRotate_for_caseC(){
   *   (130)                       (130)   (75) (1)
   */
 void test_rightRotate_for_caseD(){
-  Node Node130 = {.data = 130, .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node130 = {.data = 130, .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
-  Node Node120 = {.data = 120,  .balance = -1, .leftChild = &Node130, . rightChild = NULL };
-  Node Node200 = {.data = 200,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node1  = {.data = 1,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node75  = {.data = 75,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
+  NodeInt Node120 = {.data = 120,  .balance = -1, .leftChild = &Node130, . rightChild = NULL };
+  NodeInt Node200 = {.data = 200,  .balance = 0, .leftChild = NULL, . rightChild = NULL};
   
-  Node Node150 = {.data = 150, .balance = 1, .leftChild = &Node200, . rightChild = &Node120};
-  Node Node50  = {.data = 50,  .balance = 0, .leftChild = &Node75, . rightChild = &Node1};
+  NodeInt Node150 = {.data = 150, .balance = 1, .leftChild = &Node200, . rightChild = &Node120};
+  NodeInt Node50  = {.data = 50,  .balance = 0, .leftChild = &Node75, . rightChild = &Node1};
   
-  Node Node100 = {.data = 100, .balance = -1, .leftChild = &Node150, . rightChild = &Node50};
+  NodeInt Node100 = {.data = 100, .balance = -1, .leftChild = &Node150, . rightChild = &Node50};
   
-  Node *root;
-  root = rightRotate(&Node100);
+  NodeInt *root;
+  root = (NodeInt *) rightRotate((Node *) &Node100);
  
   TEST_ASSERT_EQUAL_PTR(&Node150, root);
   TEST_ASSERT_EQUAL_PTR(&Node100, root->rightChild);
